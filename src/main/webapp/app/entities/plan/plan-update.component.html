@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-plan-heading" jhiTranslate="riverApp.plan.home.createOrEditLabel">Create or edit a Plan</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="riverApp.plan.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="riverApp.plan.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="riverApp.plan.planimg" for="field_planimg">Planimg</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('planimgContentType')!.value + ';base64,' + editForm.get('planimg')!.value" style="max-height: 100px;" *ngIf="editForm.get('planimg')!.value" alt="plan image"/>
+                        <div *ngIf="editForm.get('planimg')!.value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('planimgContentType')!.value}}, {{byteSize(editForm.get('planimg')!.value)}}</span>
+                            <button type="button" (click)="clearInputImage('planimg', 'planimgContentType', 'file_planimg')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_planimg" (change)="setFileData($event, 'planimg', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="planimg" id="field_planimg"
+                           formControlName="planimg"/>
+                    <input type="hidden" class="form-control" name="planimgContentType" id="field_planimgContentType"
+                           formControlName="planimgContentType" />
+                    <div *ngIf="editForm.get('planimg')!.invalid && (editForm.get('planimg')!.dirty || editForm.get('planimg')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('planimg')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="riverApp.plan.projet" for="field_projet">Projet</label>
+                    <select class="form-control" id="field_projet" name="projet" formControlName="projet">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="projetOption.id === editForm.get('projet')!.value?.id ? editForm.get('projet')!.value : projetOption" *ngFor="let projetOption of projets; trackBy: trackById">{{projetOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

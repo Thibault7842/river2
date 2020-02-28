@@ -1,0 +1,25 @@
+{
+  "riverApp": {
+    "carte": {
+      "home": {
+        "title": "Cartes",
+        "createLabel": "Create a new Carte",
+        "createOrEditLabel": "Create or edit a Carte",
+        "notFound": "No Cartes found"
+      },
+      "created": "A new Carte is created with identifier {{ param }}",
+      "updated": "A Carte is updated with identifier {{ param }}",
+      "deleted": "A Carte is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Carte {{ id }}?"
+      },
+      "detail": {
+        "title": "Carte"
+      },
+      "name": "Name",
+      "description": "Description",
+      "landingimg": "Landingimg",
+      "projet": "Projet"
+    }
+  }
+}

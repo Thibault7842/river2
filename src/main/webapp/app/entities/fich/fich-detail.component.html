@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="fich">
+            <h2><span jhiTranslate="riverApp.fich.detail.title">Fich</span> {{fich.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="riverApp.fich.name">Name</span></dt>
+                <dd>
+                    <span>{{fich.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="riverApp.fich.description">Description</span></dt>
+                <dd>
+                    <span>{{fich.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="riverApp.fich.planimg">Planimg</span></dt>
+                <dd>
+                    <div *ngIf="fich.planimg">
+                        <a (click)="openFile(fich.planimgContentType!, fich.planimg)" jhiTranslate="entity.action.open">open</a>
+                        {{fich.planimgContentType}}, {{byteSize(fich.planimg)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="riverApp.fich.projet">Projet</span></dt>
+                <dd>
+                    <div *ngIf="fich.projet">
+                        <a [routerLink]="['/projet', fich.projet?.id, 'view']">{{fich.projet?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/fich', fich.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

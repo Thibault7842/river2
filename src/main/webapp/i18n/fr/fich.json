@@ -1,0 +1,25 @@
+{
+  "riverApp": {
+    "fich": {
+      "home": {
+        "title": "Fiches",
+        "createLabel": "Créer un nouveau Fich",
+        "createOrEditLabel": "Créer ou éditer un Fich",
+        "notFound": "Aucun Fich trouvé"
+      },
+      "created": "Un nouveau Fich a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Fich avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Fich avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Fich {{ id }} ?"
+      },
+      "detail": {
+        "title": "Fich"
+      },
+      "name": "Name",
+      "description": "Description",
+      "planimg": "Planimg",
+      "projet": "Projet"
+    }
+  }
+}

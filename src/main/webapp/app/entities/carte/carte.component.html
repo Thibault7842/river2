@@ -1,0 +1,70 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="riverApp.carte.home.title">Cartes</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-carte" [routerLink]="['/carte/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="riverApp.carte.home.createLabel">
+            Create a new Carte
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="cartes?.length === 0">
+        <span jhiTranslate="riverApp.carte.home.notFound">No cartes found</span>
+    </div>
+    <div class="table-responsive" *ngIf="cartes?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col" ><span jhiTranslate="riverApp.carte.name">Name</span></th>
+            <th scope="col" ><span jhiTranslate="riverApp.carte.description">Description</span></th>
+            <th scope="col" ><span jhiTranslate="riverApp.carte.landingimg">Landingimg</span></th>
+            <th scope="col" ><span jhiTranslate="riverApp.carte.projet">Projet</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let carte of cartes ;trackBy: trackId">
+                <td><a [routerLink]="['/carte', carte.id, 'view' ]">{{carte.id}}</a></td>
+                <td>{{carte.name}}</td>
+                <td>{{carte.description}}</td>
+                <td>
+                    <a *ngIf="carte.landingimg" (click)="openFile(carte.landingimgContentType, carte.landingimg)">
+                        <img [src]="'data:' + carte.landingimgContentType + ';base64,' + carte.landingimg" style="max-height: 30px;" alt="carte image"/>
+                    </a>
+                    <span *ngIf="carte.landingimg">{{carte.landingimgContentType}}, {{byteSize(carte.landingimg)}}</span>
+                </td>
+                <td>
+                    <div *ngIf="carte.projet">
+                        <a [routerLink]="['/projet', carte.projet?.id, 'view' ]" >{{carte.projet?.name}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/carte', carte.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/carte', carte.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(carte)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

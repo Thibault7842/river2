@@ -1,0 +1,62 @@
+application {
+  config {
+    baseName river,
+    applicationType monolith,
+    packageName fr.inti.river ,
+    prodDatabaseType postgresql,
+    cacheProvider hazelcast,
+    buildTool maven,
+    clientFramework angularX,
+    useSass true,
+    testFrameworks [protractor]
+  }
+  entities *
+}
+
+entity Projet {
+  name String required minlength(3)
+  description String required minlength(25)
+  landingimg ImageBlob required
+}
+
+entity Carte {
+  name String required minlength(3)
+  description String 
+  landingimg ImageBlob required
+}
+
+entity Plan {
+ name String
+description String
+ planimg ImageBlob required
+}
+
+entity Fich {
+ name String
+description String
+ planimg Blob required
+}
+
+entity Post {
+  title String required
+  content TextBlob required
+  date Instant required
+}
+
+entity Tag {
+  name String required minlength(2)
+}
+
+relationship ManyToOne {
+  Projet{user(login)} to User
+  Post{projet(name)} to Projet
+  Carte{projet(name)} to Projet
+  Plan{projet(name)} to Projet
+  Fich{projet(name)} to Projet
+}
+
+relationship ManyToMany {
+  Post{tag(name)} to Tag{entry}
+}
+
+paginate Post, Tag with infinite-scroll

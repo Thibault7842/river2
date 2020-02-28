@@ -1,0 +1,68 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="riverApp.projet.home.title">Projets</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-projet" [routerLink]="['/projet/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="riverApp.projet.home.createLabel">
+            Create a new Projet
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="projets?.length === 0">
+        <span jhiTranslate="riverApp.projet.home.notFound">No projets found</span>
+    </div>
+    <div class="table-responsive" *ngIf="projets?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col" ><span jhiTranslate="riverApp.projet.name">Name</span></th>
+            <th scope="col" ><span jhiTranslate="riverApp.projet.description">Description</span></th>
+            <th scope="col" ><span jhiTranslate="riverApp.projet.landingimg">Landingimg</span></th>
+            <th scope="col" ><span jhiTranslate="riverApp.projet.user">User</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let projet of projets ;trackBy: trackId">
+                <td><a [routerLink]="['/projet', projet.id, 'view' ]">{{projet.id}}</a></td>
+                <td>{{projet.name}}</td>
+                <td>{{projet.description}}</td>
+                <td>
+                    <a *ngIf="projet.landingimg" (click)="openFile(projet.landingimgContentType, projet.landingimg)">
+                        <img [src]="'data:' + projet.landingimgContentType + ';base64,' + projet.landingimg" style="max-height: 30px;" alt="projet image"/>
+                    </a>
+                    <span *ngIf="projet.landingimg">{{projet.landingimgContentType}}, {{byteSize(projet.landingimg)}}</span>
+                </td>
+                <td>
+                    {{projet.user?.login}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/projet', projet.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/projet', projet.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(projet)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
