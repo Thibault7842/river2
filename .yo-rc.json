@@ -37,7 +37,9 @@
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
-    "blueprints": []
+    "blueprints": [],
+    "herokuAppName": "the-river",
+    "herokuDeployType": "git"
   },
   "entities": ["Projet", "Carte", "Plan", "Fich", "Post", "Tag"]
 }
